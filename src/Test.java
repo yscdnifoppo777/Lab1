@@ -36,11 +36,15 @@ public class Test {
 		if(count==arr1.length/2){
 			int flag=0;
 			String[] arr2=str2.split("[ ]+|=");
+			for(int i=0;i<arr2.length;i++){
+				System.out.println(arr2[i]);
+			}
+			
 			for(int j=1;j<arr2.length;j=j+2){
 				str1=str1.replaceAll(arr2[j],arr2[j+1]);
 				if(arr2[j+1].charAt(0)=='-')
 					flag++;
-			}
+			}System.out.println(str1);
 			if(flag==0){
 				str1=simplifySingle(str1);
 				str1=simplifyNum(str1);
@@ -255,53 +259,57 @@ public class Test {
 
 	
 	public static void main(String[] args){
-		Scanner input=new Scanner(System.in);
-		String str;
-		boolean rs;
-		long startTime=0,endTime=0;
-		do{
-			System.out.println("请输入多项式：");
-			str=input.nextLine();
-			rs=expression(str);
-		}while(rs==false);
-		
-		String str1=change_add(str);	
-		
-		String str2="";
-		String Con="";
-		System.out.print("是否输入命令（y or n）？：");
-		Con=input.next();
-		while(Con.equals("y")){
-			input.nextLine();
-			System.out.print("请输入命令：");
-			str2=input.nextLine();
+		try{
+			Scanner input=new Scanner(System.in);
+			String str;
+			boolean rs;
+			long startTime=0,endTime=0;
+			do{
+				System.out.println("请输入多项式：");
+				str=input.nextLine();
+				rs=expression(str);
+			}while(rs==false);
 			
-			String str_p1="^!simplify\\s*(\\s+([a-zA-Z]+)=(-?\\d+(\\.\\d+)?)[ ]*)*$";
-			Pattern pat1=Pattern.compile(str_p1);
-			Matcher mat1=pat1.matcher(str2);
-			boolean rs1=mat1.find();
-
-			String str_p2="^!d/d\\s+[a-zA-Z]+$";
-			Pattern pat2=Pattern.compile(str_p2);
-			Matcher mat2=pat2.matcher(str2);
-			boolean rs2=mat2.find();
-			startTime=System.currentTimeMillis();
-			if(rs1){
-				simplify(str1,str2);
-			}
-			else if(rs2){
-				derivative(str1,str2);
-			}
-			else{
-				System.out.println("Error Command!");
-			}
-			endTime=System.currentTimeMillis();
-			System.out.println("执行开始时间： "+startTime+"ms");
-			System.out.println("执行结束时间： "+endTime+"ms");
-			System.out.println("执行总的时间： "+(endTime-startTime)+"ms");
-			System.out.print("是否继续输入命令（y or n）？：");
+			String str1=change_add(str);	
+			System.out.println(str1);
+			String str2="";
+			String Con="";
+			System.out.print("是否输入命令（y or n）？：");
 			Con=input.next();
+			while(Con.equals("y")||Con.equals("Y")){
+				input.nextLine();
+				System.out.print("请输入命令：");
+				str2=input.nextLine();
+				
+				String str_p1="^!simplify\\s*(\\s+([a-zA-Z]+)=(-?\\d+(\\.\\d+)?)[ ]*)*$";
+				Pattern pat1=Pattern.compile(str_p1);
+				Matcher mat1=pat1.matcher(str2);
+				boolean rs1=mat1.find();
+
+				String str_p2="^!d/d\\s+[a-zA-Z]+$";
+				Pattern pat2=Pattern.compile(str_p2);
+				Matcher mat2=pat2.matcher(str2);
+				boolean rs2=mat2.find();
+				startTime=System.currentTimeMillis();
+				if(rs1){
+					simplify(str1,str2);
+				}
+				else if(rs2){
+					derivative(str1,str2);
+				}
+				else{
+					System.out.println("Error Command!");
+				}
+				endTime=System.currentTimeMillis();
+				System.out.println("执行开始时间： "+startTime+"ms");
+				System.out.println("执行结束时间： "+endTime+"ms");
+				System.out.println("执行总的时间： "+(endTime-startTime)+"ms");
+				System.out.print("是否继续输入命令（y or n）？：");
+				Con=input.next();
+			}
+			input.close();
+		}catch(Exception e){
+			System.out.println("Error!");
 		}
-		input.close();
 	}
 }
