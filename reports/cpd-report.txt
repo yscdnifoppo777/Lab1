@@ -1,0 +1,16 @@
+Found a 4 line (31 tokens) duplication in the following files: 
+Starting at line 14 of E:\workplace\Lab4\src\TestpolyProgramme.java
+Starting at line 119 of E:\workplace\Lab4\src\TestpolyProgramme.java
+
+		Pattern pat = Pattern.compile(strp);
+		Matcher mat = pat.matcher(str);
+		boolean rs = mat.find();
+		if(rs){
+=====================================================================
+Found a 3 line (30 tokens) duplication in the following files: 
+Starting at line 227 of E:\workplace\Lab4\src\TestpolyProgramme.java
+Starting at line 233 of E:\workplace\Lab4\src\TestpolyProgramme.java
+
+						sum+=Float.parseFloat(arr[i]);
+						tmp=exptemp.substring(p, p+arr[i].length());
+						tmp="\\+"+tmp;
